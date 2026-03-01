@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MindGuard+ | Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>MindGuard+</h2>
+        <ul>
+            <li onclick="showSection('home')">🏠 Home</li>
+            <li onclick="showSection('chat')">💬 Chat</li>
+            <li onclick="showSection('mood')">📊 Mood</li>
+            <li onclick="showSection('wellness')">🌿 Wellness</li>
+            <li onclick="showSection('profile')">👤 Profile</li>
+            <li onclick="logout()">🚪 Logout</li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <!-- HOME -->
+        <div id="home" class="section">
+            <h1>Welcome to MindGuard+</h1>
+            <p id="streakDisplay"></p>
+        </div>
+
+        <!-- CHAT -->
+        <div id="chat" class="section" style="display:none;">
+    <h1>MindGuard Chat</h1>
+
+    <div id="chatBox" class="chat-container"></div>
+
+    <div class="chat-input-area">
+        <input type="text" id="message" placeholder="Type your thoughts..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+
+        <!-- MOOD -->
+        <div id="mood" class="section" style="display:none;">
+            <h1>Mood Analytics</h1>
+            <div id="moodData"></div>
+        </div>
+
+        <!-- WELLNESS -->
+        <div id="wellness" class="section" style="display:none;">
+    <h1>Wellness Center</h1>
+
+    <div class="wellness-grid">
+
+        <div class="well-card">
+            <h3>😄 Random Joke</h3>
+            <button onclick="getJoke()">Generate</button>
+            <p id="jokeOutput"></p>
+        </div>
+
+        <div class="well-card">
+            <h3>💬 Motivational Quote</h3>
+            <button onclick="getQuote()">Generate</button>
+            <p id="quoteOutput"></p>
+        </div>
+
+        <div class="well-card">
+            <h3>🌬️ Breathing Exercise</h3>
+            <div id="breathCircle">Ready</div>
+            <button onclick="startBreathing()">Start</button>
+        </div>
+
+    </div>
+</div>
+
+        <!-- PROFILE -->
+        <div id="profile" class="section" style="display:none;">
+    <h1>Profile Settings</h1>
+
+    <div class="profile-card">
+        <p><strong>Name:</strong> <span id="profileName"></span></p>
+        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+        <p><strong>Mood Streak:</strong> <span id="profileStreak"></span> 🔥</p>
+    </div>
+
+    <h3>Add Emergency Contact</h3>
+
+    <input type="text" id="contactName" placeholder="Contact Name">
+    <input type="email" id="contactEmail" placeholder="Contact Email">
+    <button onclick="addContact()">Add Contact</button>
+
+    <div id="contactList"></div>
+</div>
+
+    </div>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
