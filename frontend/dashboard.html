@@ -3,22 +3,28 @@
 <head>
     <title>MindGuard+ | Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <div class="dashboard">
 
     <!-- SIDEBAR -->
     <div class="sidebar">
+
         <h2>MindGuard+</h2>
+
         <ul>
             <li onclick="showSection('home')">🏠 Home</li>
             <li onclick="showSection('chat')">💬 Chat</li>
             <li onclick="showSection('mood')">📊 Mood</li>
             <li onclick="showSection('wellness')">🌿 Wellness</li>
+            <li onclick="showSection('goals')">🎯 Goals</li>
             <li onclick="showSection('profile')">👤 Profile</li>
             <li onclick="logout()">🚪 Logout</li>
         </ul>
+
     </div>
 
     <!-- MAIN CONTENT -->
@@ -32,68 +38,188 @@
 
         <!-- CHAT -->
         <div id="chat" class="section" style="display:none;">
-    <h1>MindGuard Chat</h1>
 
-    <div id="chatBox" class="chat-container"></div>
+            <h1>MindGuard Chat</h1>
 
-    <div class="chat-input-area">
-        <input type="text" id="message" placeholder="Type your thoughts..." />
-        <button onclick="sendMessage()">Send</button>
-    </div>
-</div>
+            <div id="chatBox" class="chat-container"></div>
 
+            <div class="chat-input-area">
+                <input
+                    type="text"
+                    id="message"
+                    placeholder="Type your thoughts..."
+                >
+                <button onclick="sendMessage()">
+                    Send
+                </button>
+            </div>
+
+        </div>
 
         <!-- MOOD -->
-        <div id="mood" class="section" style="display:none;">
-            <h1>Mood Analytics</h1>
-            <div id="moodData"></div>
+        <div class="section" id="mood" style="display:none;">
+
+            <h2>Mood Analytics</h2>
+
+            <canvas
+                id="moodChart"
+                width="400"
+                height="200">
+            </canvas>
+
         </div>
 
         <!-- WELLNESS -->
         <div id="wellness" class="section" style="display:none;">
-    <h1>Wellness Center</h1>
 
-    <div class="wellness-grid">
+            <h1>Wellness Center</h1>
 
-        <div class="well-card">
-            <h3>😄 Random Joke</h3>
-            <button onclick="getJoke()">Generate</button>
-            <p id="jokeOutput"></p>
+            <div class="wellness-grid">
+
+                <div class="well-card">
+
+                    <h3>😄 Random Joke</h3>
+
+                    <button onclick="getJoke()">
+                        Generate
+                    </button>
+
+                    <p id="jokeOutput"></p>
+
+                </div>
+
+                <div class="well-card">
+
+                    <h3>💬 Motivational Quote</h3>
+
+                    <button onclick="getQuote()">
+                        Generate
+                    </button>
+
+                    <p id="quoteOutput"></p>
+
+                </div>
+
+                <div class="well-card">
+
+                    <h3>🌬️ Breathing Exercise</h3>
+
+                    <div id="breathCircle">
+                        Ready
+                    </div>
+
+                    <button onclick="startBreathing()">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="well-card">
-            <h3>💬 Motivational Quote</h3>
-            <button onclick="getQuote()">Generate</button>
-            <p id="quoteOutput"></p>
-        </div>
+        <!-- GOALS -->
+        <div id="goals" class="section" style="display:none;">
 
-        <div class="well-card">
-            <h3>🌬️ Breathing Exercise</h3>
-            <div id="breathCircle">Ready</div>
-            <button onclick="startBreathing()">Start</button>
-        </div>
+            <h1>🎯 Goal Tracker</h1>
 
+            <div class="goal-form">
+
+                <input
+                    type="text"
+                    id="goalTitle"
+                    placeholder="Goal Title"
+                >
+
+                <textarea
+                    id="goalDescription"
+                    placeholder="Goal Description">
+                </textarea>
+
+                <input
+                    type="date"
+                    id="goalDate"
+                >
+
+                <input
+                    type="time"
+                    id="goalTime"
+                >
+
+                <button onclick="addGoal()">
+                    Add Goal
+                </button>
+
+            </div>
+
+            <div class="goal-stats">
+
+    <div class="stat-card">
+        <h2 id="totalGoals">0</h2>
+        <p>Total Goals</p>
     </div>
+
+    <div class="stat-card">
+        <h2 id="completedGoals">0</h2>
+        <p>Completed</p>
+    </div>
+
+    <div class="stat-card">
+        <h2 id="pendingGoals">0</h2>
+        <p>Pending</p>
+    </div>
+
 </div>
+
+<div id="goalList"></div>
+
+        </div>
 
         <!-- PROFILE -->
         <div id="profile" class="section" style="display:none;">
-    <h1>Profile Settings</h1>
 
-    <div class="profile-card">
-        <p><strong>Name:</strong> <span id="profileName"></span></p>
-        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
-        <p><strong>Mood Streak:</strong> <span id="profileStreak"></span> 🔥</p>
-    </div>
+            <h1>Profile Settings</h1>
 
-    <h3>Add Emergency Contact</h3>
+            <div class="profile-card">
 
-    <input type="text" id="contactName" placeholder="Contact Name">
-    <input type="email" id="contactEmail" placeholder="Contact Email">
-    <button onclick="addContact()">Add Contact</button>
+                <p>
+                    <strong>Name:</strong>
+                    <span id="profileName"></span>
+                </p>
 
-    <div id="contactList"></div>
-</div>
+                <p>
+                    <strong>Email:</strong>
+                    <span id="profileEmail"></span>
+                </p>
+
+                <p>
+                    <strong>Mood Streak:</strong>
+                    <span id="profileStreak"></span> 🔥
+                </p>
+
+            </div>
+
+            <h3>Add Emergency Contact</h3>
+
+            <input
+                type="text"
+                id="contactName"
+                placeholder="Contact Name"
+            >
+
+            <input
+                type="email"
+                id="contactEmail"
+                placeholder="Contact Email"
+            >
+
+            <button onclick="addContact()">
+                Add Contact
+            </button>
+
+            <div id="contactList"></div>
+
+        </div>
 
     </div>
 
@@ -101,5 +227,6 @@
 
 <script src="js/api.js"></script>
 <script src="js/dashboard.js"></script>
+
 </body>
 </html>

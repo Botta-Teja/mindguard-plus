@@ -1,16 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const protect = require("../middleware/authMiddleware");
-const {
-    getTodayMood,
-    getWeeklyReport
-} = require("../controllers/moodController");
-
-// Today mood
-router.get("/today", protect, getTodayMood);
-
-// Weekly report
-router.get("/weekly", protect, getWeeklyReport);
+router.get("/test", (req, res) => {
+    res.json({ message: "Mood Routes Working" });
+});
 
 module.exports = router;

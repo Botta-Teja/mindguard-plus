@@ -1,0 +1,595 @@
+
+MINDGUARD+ MASTER PROJECT DOCUMENT
+==================================
+
+PROJECT NAME
+------------
+MindGuard+ — AI Mental Wellness Companion
+
+PROJECT PURPOSE
+---------------
+MindGuard+ is a full-stack AI-powered mental wellness platform designed as:
+- Final Year Project
+- Internship Showcase Project
+- Resume Project
+- Startup-style Product Prototype
+
+The platform helps users:
+- Chat with an AI mental wellness assistant
+- Track emotions and moods
+- Detect high-risk emotional states
+- Alert emergency contacts
+- Track mood history
+- Set goals and reminders
+- Receive wellness guidance
+
+==================================================
+TECH STACK
+==================================================
+
+Frontend:
+- HTML
+- CSS
+- JavaScript
+- Chart.js
+
+Backend:
+- Node.js
+- Express.js
+
+Database:
+- MongoDB
+- Mongoose
+
+Authentication:
+- JWT
+- bcrypt
+
+AI:
+- Ollama
+- Phi3 Model
+
+Email:
+- Nodemailer
+- Gmail App Password
+
+Scheduling:
+- node-cron
+
+Testing:
+- Postman
+
+Version Control:
+- Git
+- GitHub
+
+==================================================
+PROJECT FOLDER STRUCTURE
+==================================================
+
+config/
+    db.js
+
+controllers/
+    authController.js
+    chatController.js
+    moodController.js
+    wellnessController.js
+    goalController.js
+
+middleware/
+    authMiddleware.js
+    errorMiddleware.js
+
+models/
+    User.js
+    Chat.js
+    Mood.js
+    Joke.js
+    Quote.js
+    Goal.js
+
+routes/
+    authRoutes.js
+    chatRoutes.js
+    moodRoutes.js
+    wellnessRoutes.js
+    goalRoutes.js
+
+services/
+    alertService.js
+    emotionService.js
+    goalScheduler.js
+    smsService.js (optional)
+
+frontend/
+    index.html
+    signup.html
+    dashboard.html
+
+frontend/css/
+    style.css
+
+frontend/js/
+    api.js
+    auth.js
+    dashboard.js
+
+server.js
+package.json
+
+==================================================
+FEATURES COMPLETED
+==================================================
+
+1. USER AUTHENTICATION
+----------------------
+Completed:
+- Signup
+- Login
+- JWT Token Generation
+- Protected Routes
+- Password Hashing using bcrypt
+
+Files:
+controllers/authController.js
+routes/authRoutes.js
+middleware/authMiddleware.js
+models/User.js
+
+==================================================
+
+2. AI CHATBOT
+-------------
+Current AI:
+- Ollama
+- Phi3 model
+
+Previous Attempt:
+- Google Gemini API
+
+Reason Removed:
+- 404 Model Errors
+- Billing restrictions
+- Free tier limitations
+
+Current Status:
+Working
+
+Files:
+controllers/chatController.js
+models/Chat.js
+
+Capabilities:
+- Stores chat history
+- Uses conversation memory
+- Responds as mental wellness assistant
+
+==================================================
+
+3. EMOTION ANALYSIS
+-------------------
+
+Implemented Emotions:
+- Happy
+- Neutral
+- Sad
+- Extreme Distress
+
+Output:
+- emotion
+- riskLevel
+- emotionScore
+
+Files:
+services/emotionService.js
+
+==================================================
+
+4. SUICIDE RISK DETECTION
+-------------------------
+
+If user enters messages indicating self-harm:
+
+Example:
+"I want to die"
+"I want to end my life"
+
+System:
+riskLevel = HIGH
+
+Files:
+chatController.js
+emotionService.js
+
+==================================================
+
+5. EMERGENCY CONTACT SYSTEM
+---------------------------
+
+Users can:
+- Add emergency contacts
+- Store contacts in MongoDB
+
+Files:
+models/User.js
+server.js (/add-contact endpoint)
+
+==================================================
+
+6. EMERGENCY EMAIL ALERTS
+-------------------------
+
+When:
+riskLevel === HIGH
+
+System:
+Sends emergency email to all emergency contacts
+
+Current Status:
+WORKING
+
+Files:
+services/alertService.js
+controllers/chatController.js
+
+==================================================
+
+7. MOOD TRACKING
+----------------
+
+Stores:
+- Daily emotion
+- Emotion score
+- Dominant emotion
+- Entry count
+
+Files:
+models/Mood.js
+controllers/moodController.js
+
+Current Status:
+WORKING
+
+==================================================
+
+8. MOOD STREAK SYSTEM
+---------------------
+
+Tracks:
+- Consecutive active days
+
+Stored in:
+User.moodStreak
+
+Current Status:
+WORKING
+
+==================================================
+
+9. WELLNESS FEATURES
+--------------------
+
+A. Quotes
+Files:
+models/Quote.js
+wellnessController.js
+
+B. Jokes
+Files:
+models/Joke.js
+wellnessController.js
+
+C. Breathing Exercise
+Files:
+wellnessController.js
+dashboard.js
+
+Current Status:
+WORKING
+
+==================================================
+
+10. MOOD ANALYTICS GRAPH
+------------------------
+
+Technology:
+Chart.js
+
+Displays:
+- Happy
+- Sad
+- Neutral
+- Distress
+
+Endpoint:
+/api/mood/weekly
+
+Files:
+dashboard.js
+moodController.js
+
+Current Status:
+WORKING
+
+==================================================
+
+11. GOAL SYSTEM
+---------------
+
+Implemented:
+- Add Goal
+- Get Goals
+- Complete Goal
+
+Files:
+models/Goal.js
+controllers/goalController.js
+routes/goalRoutes.js
+
+Current Status:
+Backend Working
+
+==================================================
+
+12. GOAL REMINDER SYSTEM
+------------------------
+
+Technology:
+node-cron
+
+Files:
+services/goalScheduler.js
+
+Behavior:
+Checks:
+- Date
+- Time
+- Completion status
+
+Current Status:
+WORKING
+
+==================================================
+
+13. GOAL REMINDER EMAILS
+------------------------
+
+Behavior:
+- Sends reminder only to logged-in user
+- Does NOT send to emergency contacts
+
+Files:
+services/alertService.js
+services/goalScheduler.js
+
+Current Status:
+WORKING
+
+==================================================
+
+14. SMS REMINDER ATTEMPT
+------------------------
+
+Tried:
+Textbelt
+
+Result:
+Blocked in India
+
+Error:
+Free SMS disabled for this country.
+
+Decision:
+Remove SMS feature.
+Keep Email Reminder system.
+
+==================================================
+
+15. GITHUB SETUP
+---------------
+
+Completed:
+- Git initialized
+- Repository prepared
+- README created
+- .gitignore configured
+
+Protected:
+.env
+
+==================================================
+IMPORTANT MODIFICATIONS MADE DURING DEVELOPMENT
+==================================================
+
+1. Gemini Removed
+2. Ollama Installed
+3. Mistral Tested
+4. Phi3 Installed
+5. Phi3 Chosen for speed
+6. Added conversation memory
+7. Added mood graph
+8. Added emergency emails
+9. Added goal reminder emails
+10. Added scheduler
+
+==================================================
+CURRENT DASHBOARD PAGES
+==================================================
+
+Implemented:
+- Home
+- Chat
+- Mood Analytics
+- Wellness
+- Profile
+
+Needs Completion:
+- Goals Page UI
+
+==================================================
+KNOWN ISSUES
+==================================================
+
+1.
+Dashboard navigation occasionally needs cleanup.
+
+2.
+Chat response still around 5-6 seconds.
+
+Future Optimization:
+- Stream responses
+- Reduce prompt size
+- Upgrade hardware
+
+==================================================
+NEXT FEATURES TO BUILD
+==================================================
+
+PRIORITY 1
+----------
+Goals UI
+
+Add:
+- Goal page
+- Goal form
+- Goal cards
+- Complete button
+
+Files:
+dashboard.html
+dashboard.js
+style.css
+
+==================================================
+
+PRIORITY 2
+----------
+AI Weekly Mental Health Report
+
+Use:
+- Mood history
+- Goal completion
+- Recent emotions
+
+Output:
+Weekly personalized report
+
+==================================================
+
+PRIORITY 3
+----------
+Goal Completion Analytics
+
+Show:
+- Weekly completion %
+- Monthly completion %
+
+Use:
+Chart.js
+
+==================================================
+
+PRIORITY 4
+----------
+Mood Heatmap Calendar
+
+GitHub-style mood calendar
+
+Colors:
+Green = Happy
+Yellow = Neutral
+Red = Sad
+Purple = Distress
+
+==================================================
+
+PRIORITY 5
+----------
+Professional Chat UI
+
+Add:
+- Message bubbles
+- Typing animation
+- Loading animation
+- Better scrolling
+
+==================================================
+
+PRIORITY 6
+----------
+Dashboard Redesign
+
+Add:
+- Glassmorphism
+- Better cards
+- Animations
+- Modern layout
+
+==================================================
+
+PRIORITY 7
+----------
+AI Personalized Suggestions
+
+Generate advice using:
+- Mood history
+- Goals
+- Chat history
+
+==================================================
+
+PRIORITY 8
+----------
+Deployment
+
+Frontend:
+- Vercel
+
+Backend:
+- Render or Railway
+
+Database:
+- MongoDB Atlas
+
+==================================================
+
+INTERVIEW EXPLANATION
+==================================================
+
+Project:
+MindGuard+
+
+Description:
+Developed a full-stack AI-powered mental wellness platform using Node.js, Express.js, MongoDB, JWT Authentication, bcrypt, Ollama AI (Phi3), Nodemailer, and Chart.js. The platform includes AI mental wellness chat, emotion detection, suicide-risk alerts, emergency email notifications, mood analytics, goal tracking, and automated reminder systems.
+
+==================================================
+
+WHEN CONTINUING DEVELOPMENT
+==================================================
+
+Rules:
+1. Do not reintroduce Gemini API.
+2. Continue from current codebase.
+3. Preserve authentication system.
+4. Preserve MongoDB schema structure.
+5. Give complete file replacements when modifying code.
+6. Focus on final-year-project quality.
+7. Focus on startup-quality UI.
+8. Build features step-by-step.
+
+CURRENT DEVELOPMENT RESUME POINT
+--------------------------------
+
+NEXT TASK:
+
+1. Goals UI Integration
+2. AI Weekly Mental Health Report
+3. Goal Analytics Dashboard
+4. Mood Heatmap Calendar
+5. Chat UI Upgrade
+6. Dashboard Redesign
+7. Personalized AI Suggestions
+8. Deployment
+
+END OF DOCUMENT

@@ -1,42 +1,53 @@
 const dotenv = require("dotenv");
 dotenv.config();
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
 const express = require("express");
+const cors = require("cors");
+
 const connectDB = require("./config/db");
 
+// Models
 const User = require("./models/User");
 const Joke = require("./models/Joke");
 const Quote = require("./models/Quote");
 
+// Middleware
 const protect = require("./middleware/authMiddleware");
 const errorHandler = require("./middleware/errorMiddleware");
 
+// Routes
 const authRoutes = require("./routes/authRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const wellnessRoutes = require("./routes/wellnessRoutes");
 const moodRoutes = require("./routes/moodRoutes");
+const goalRoutes = require("./routes/goalRoutes");
 
-const cors = require("cors");
+// 🔥 Scheduler
+require("./services/goalScheduler");
 
-
-connectDB();
-
+// ✅ CREATE APP FIRST
 const app = express();
 
-// Middlewares
+// ================= MIDDLEWARE =================
 app.use(express.json());
 app.use(cors());
+
+// ================= CONNECT DB =================
+connectDB();
 
 // ================= ROUTES =================
 app.use("/api/auth", authRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/wellness", wellnessRoutes);
 app.use("/api/mood", moodRoutes);
+app.use("/api/goals", goalRoutes); // ✅ FIXED POSITION
 
 // ================= HOME =================
 app.get("/", (req, res) => {
+    console.log("🏠 HOME ROUTE HIT");
     res.send("MindGuard+ Server Running Successfully");
 });
-
 // ================= PROFILE =================
 app.get("/profile", protect, async (req, res) => {
     try {

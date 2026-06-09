@@ -70,8 +70,97 @@ const getWeeklyReport = async (req, res) => {
         });
     }
 };
+// ================= AI MOOD INSIGHT =================
 
+const getMoodInsight = async (req, res) => {
+
+    try {
+
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(
+            sevenDaysAgo.getDate() - 7
+        );
+
+        const moods = await Mood.find({
+            user: req.user,
+            createdAt: {
+                $gte: sevenDaysAgo
+            }
+        });
+
+        let happy = 0;
+        let sad = 0;
+        let distress = 0;
+        let neutral = 0;
+
+        moods.forEach(mood => {
+
+            if (
+                mood.dominantEmotion === "Happy"
+            ) happy++;
+
+            else if (
+                mood.dominantEmotion === "Sad"
+            ) sad++;
+
+            else if (
+                mood.dominantEmotion ===
+                "Extreme Distress"
+            ) distress++;
+
+            else neutral++;
+        });
+
+        let insight = "";
+
+        if (
+            happy >= sad &&
+            happy >= distress
+        ) {
+
+            insight =
+            "Your emotional trend is positive this week. Continue your healthy habits and maintain consistency.";
+
+        } else if (
+            sad > happy
+        ) {
+
+            insight =
+            "You may be experiencing emotional challenges recently. Consider reaching out to trusted people and focusing on self-care.";
+
+        } else if (
+            distress > 0
+        ) {
+
+            insight =
+            "Signs of emotional distress were detected. Consider taking breaks, practicing breathing exercises, and seeking support if needed.";
+
+        } else {
+
+            insight =
+            "Your mood appears stable. Continue maintaining a balanced routine.";
+        }
+
+        res.json({
+
+            happy,
+            sad,
+            distress,
+            neutral,
+            insight
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message:
+                "Error generating insight"
+        });
+    }
+};
 module.exports = {
     getTodayMood,
-    getWeeklyReport
+    getWeeklyReport,
+    getMoodInsight
 };

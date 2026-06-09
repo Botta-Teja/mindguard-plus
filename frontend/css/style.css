@@ -305,3 +305,45 @@ button:hover {
     max-height: 300px;
     overflow-y: auto;
 }
+/* ===== GOALS ===== */
+
+.goal-stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    min-width: 150px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.goal-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.goal-card h3 {
+    margin-top: 0;
+}
+
+.completed-status {
+    color: green;
+    font-weight: bold;
+}
+
+.pending-status {
+    color: orange;
+    font-weight: bold;
+}
+
+.goal-card button {
+    margin-right: 10px;
+}
